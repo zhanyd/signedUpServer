@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhanyd.app.mapper.ActivityInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zhanyd.app.model.ActivityInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="activity_title" jdbcType="VARCHAR" property="activityTitle" />
+    <result column="activity_content" jdbcType="VARCHAR" property="activityContent" />
+    <result column="activity_time" jdbcType="TIMESTAMP" property="activityTime" />
+    <result column="cut_off_time" jdbcType="TIMESTAMP" property="cutOffTime" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, activity_title, activity_content, activity_time, cut_off_time, location, longitude, 
+    latitude, state, update_by, update_time, create_by, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activity_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from activity_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhanyd.app.model.ActivityInfo">
+    insert into activity_info (id, activity_title, activity_content, 
+      activity_time, cut_off_time, location, 
+      longitude, latitude, state, 
+      update_by, update_time, create_by, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{activityTitle,jdbcType=VARCHAR}, #{activityContent,jdbcType=VARCHAR}, 
+      #{activityTime,jdbcType=TIMESTAMP}, #{cutOffTime,jdbcType=TIMESTAMP}, #{location,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, 
+      #{updateBy,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhanyd.app.model.ActivityInfo">
+    insert into activity_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="activityTitle != null">
+        activity_title,
+      </if>
+      <if test="activityContent != null">
+        activity_content,
+      </if>
+      <if test="activityTime != null">
+        activity_time,
+      </if>
+      <if test="cutOffTime != null">
+        cut_off_time,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="activityTitle != null">
+        #{activityTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="activityContent != null">
+        #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTime != null">
+        #{activityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cutOffTime != null">
+        #{cutOffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhanyd.app.model.ActivityInfo">
+    update activity_info
+    <set>
+      <if test="activityTitle != null">
+        activity_title = #{activityTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="activityContent != null">
+        activity_content = #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTime != null">
+        activity_time = #{activityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cutOffTime != null">
+        cut_off_time = #{cutOffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhanyd.app.model.ActivityInfo">
+    update activity_info
+    set activity_title = #{activityTitle,jdbcType=VARCHAR},
+      activity_content = #{activityContent,jdbcType=VARCHAR},
+      activity_time = #{activityTime,jdbcType=TIMESTAMP},
+      cut_off_time = #{cutOffTime,jdbcType=TIMESTAMP},
+      location = #{location,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
