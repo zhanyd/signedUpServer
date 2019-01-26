@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,10 @@ import com.zhanyd.app.common.ApiResult;
 import com.zhanyd.app.common.WeixinHelper;
 import com.zhanyd.app.common.util.AesCbcUtil;
 import com.zhanyd.app.common.util.HttpService;
+import com.zhanyd.app.common.util.JwtUtils;
+import com.zhanyd.app.model.ActivityInfo;
 import com.zhanyd.app.model.UserInfo;
+import com.zhanyd.app.service.ActivityService;
 import com.zhanyd.app.service.UserService;
 
 
@@ -29,9 +34,12 @@ public class ActivityController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ActivityService activityService;
 	 
 	 /**
-             * 获取Openid和Session_key
+     * 获取Openid和Session_key
      * @param code
      * @return
      */
@@ -68,7 +76,7 @@ public class ActivityController {
 
 
     /**
-             * 获取unionId
+     * 获取unionId
      * @param encryptedData
      * @param iv
      * @param code
@@ -102,5 +110,42 @@ public class ActivityController {
         }
 
         return apiResult.success(uionId);
+    }
+    
+    
+    /**
+     * 新增或更新活动
+     * @param request
+     * @param activityInfo
+     * @return
+     */
+    @RequestMapping("/updateActivity")
+    public ApiResult<Integer> updateActivity(HttpServletRequest request, ActivityInfo activityInfo){
+    	ApiResult<Integer> apiResult = new ApiResult<Integer>();
+    	int count = 0;
+    	String token = request.getHeader("Authorization");
+    	Integer userId = JwtUtils.verifyJWT(token);
+    	if(activityInfo.getId() == null) {
+    		activityInfo.setCreateBy(userId);
+    		activityInfo.setCreateTime(new Date());
+    		count = activityService.insertSelective(activityInfo);
+    	}else {
+    		activityInfo.setUpdateBy(userId);
+    		activityInfo.setUpdateTime(new Date());
+    		count = activityService.updateByPrimaryKeySelective(activityInfo);
+    	}
+    	return apiResult.success(count);
+    }
+    
+    /**
+     * 获取活动详情
+     * @param id
+     * @return
+     */
+    @RequestMapping("/getActivityDetail")
+    public ApiResult<ActivityInfo> getActivityDetail(Integer id){
+    	ApiResult<ActivityInfo> apiResult = new ApiResult<ActivityInfo>();
+    	ActivityInfo activityInfo = activityService.selectByPrimaryKey(id);
+    	return apiResult.success(activityInfo);
     }
 }

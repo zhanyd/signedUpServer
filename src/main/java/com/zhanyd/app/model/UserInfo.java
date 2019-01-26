@@ -15,29 +15,21 @@ public class UserInfo {
 
     private String tel;
 
-    private Boolean sex;
-
-    private String qq;
-
-    private String email;
-
     private String headimgurl;
 
-    private Integer integral;
-
-    private Byte level;
-
     private Byte type;
-
-    private Integer balance;
 
     private String openid;
 
     private String unionid;
 
+    private String sessionKey;
+
     private Date updateTime;
 
     private Date createTime;
+
+    private Date lastLoginTime;
 
     public Integer getId() {
         return id;
@@ -87,30 +79,6 @@ public class UserInfo {
         this.tel = tel;
     }
 
-    public Boolean getSex() {
-        return sex;
-    }
-
-    public void setSex(Boolean sex) {
-        this.sex = sex;
-    }
-
-    public String getQq() {
-        return qq;
-    }
-
-    public void setQq(String qq) {
-        this.qq = qq;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getHeadimgurl() {
         return headimgurl;
     }
@@ -119,36 +87,12 @@ public class UserInfo {
         this.headimgurl = headimgurl;
     }
 
-    public Integer getIntegral() {
-        return integral;
-    }
-
-    public void setIntegral(Integer integral) {
-        this.integral = integral;
-    }
-
-    public Byte getLevel() {
-        return level;
-    }
-
-    public void setLevel(Byte level) {
-        this.level = level;
-    }
-
     public Byte getType() {
         return type;
     }
 
     public void setType(Byte type) {
         this.type = type;
-    }
-
-    public Integer getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Integer balance) {
-        this.balance = balance;
     }
 
     public String getOpenid() {
@@ -167,6 +111,14 @@ public class UserInfo {
         this.unionid = unionid;
     }
 
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
+    }
+
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -181,5 +133,13 @@ public class UserInfo {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }

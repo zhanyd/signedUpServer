@@ -20,7 +20,7 @@
 		<sqlMapGenerator targetPackage="com.zhanyd.app.mapping" targetProject="MAVEN"/>
 		<javaClientGenerator targetPackage="com.zhanyd.app.mapper" targetProject="MAVEN" type="XMLMAPPER" />
 
-		<table tableName="activity_info" domainObjectName="ActivityInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
+		<!-- <table tableName="activity_info" domainObjectName="ActivityInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/> -->
 		<table tableName="user_info" domainObjectName="UserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
 		<!-- <table tableName="activity_signed_up" domainObjectName="ActivitySignedUp" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/> -->
 		<!-- <table tableName="identifying_code" domainObjectName="IdentifyingCode" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/> -->
