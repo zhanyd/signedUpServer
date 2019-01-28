@@ -19,6 +19,7 @@ import com.zhanyd.app.common.WeixinHelper;
 import com.zhanyd.app.common.util.AesCbcUtil;
 import com.zhanyd.app.common.util.HttpService;
 import com.zhanyd.app.common.util.JwtUtils;
+import com.zhanyd.app.common.util.StringHelp;
 import com.zhanyd.app.model.ActivityInfo;
 import com.zhanyd.app.model.UserInfo;
 import com.zhanyd.app.service.ActivityService;
@@ -37,15 +38,39 @@ public class ActivityController {
 	
 	@Autowired
 	ActivityService activityService;
+	
+	
+    /**
+	 * 验证token有效性
+	* @param token
+	* @return
+	*/
+	@RequestMapping("/verifyToken")
+	public ApiResult<String> verifyToken(String token){
+		ApiResult<String> apiResult = new ApiResult<String>();
+		if(StringHelp.isEmpty(token)){
+			apiResult.fail("token不能为空");
+	     return apiResult;
+	 }
+	
+	 Integer result = JwtUtils.verifyJWT(token);
+	 if(result == null){
+	 	apiResult.fail("token无效或已过期");
+	 }else{
+	 	apiResult.success(StringHelp.valueOf(result));
+	 }
+	 return apiResult;
+	}
 	 
 	 /**
-     * 获取Openid和Session_key
+	   * 获取Openid和Session_key
      * @param code
      * @return
      */
     @RequestMapping("/getOpenidAndSession")
-    public ApiResult getOpenidAndSession(String code,String nickName){
-    	ApiResult apiResult = new ApiResult();
+    public ApiResult<Object> getOpenidAndSession(String code){
+    	ApiResult<Object> apiResult = new ApiResult<Object>();
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
     	//获取Openid和Session_key
 		String getUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=" + WeixinHelper.APP_ID + "&secret=" + WeixinHelper.CORPSECRET + "&js_code=" + code + "&grant_type=authorization_code";
 		String returnContent = HttpService.post(getUrl);
@@ -61,17 +86,24 @@ public class ActivityController {
         if(userInfo == null){
         	userInfo = new UserInfo();
         	userInfo.setOpenid(openid);
-        	userInfo.setNickName(nickName);
-        	//userInfo.setSessionKey(sessionKey);
+        	userInfo.setSessionKey(sessionKey);
         	userInfo.setCreateTime(new Date());
         	userService.insertSelective(userInfo);
         }else{
-        	//userInfo.setSessionKey(sessionKey);
-        	//userService.updateByPrimaryKeySelective(userInfo);
+        	userInfo.setSessionKey(sessionKey);
+        	userService.updateByPrimaryKeySelective(userInfo);
         }
         
-        jsonObject.put("userId", userInfo.getId());
-        return apiResult.success(jsonObject);
+        //生成token
+  		String token = JwtUtils.signJWT(userInfo.getId());
+  		if(token == null){
+  			resultMap.put("msg", "生成token失败");
+  			return apiResult.fail(resultMap);
+  		}else{
+  			resultMap.put("userInfo", userInfo);
+  			resultMap.put("token", token);
+  			return apiResult.success(resultMap);
+  		}
     }
 
 

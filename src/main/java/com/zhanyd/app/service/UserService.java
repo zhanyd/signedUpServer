@@ -23,6 +23,10 @@ public class UserService {
 		return userInfoMapper.selectByPrimaryKey(id);
 	}
 	
+	public int updateByPrimaryKeySelective(UserInfo record) {
+		return userInfoMapper.updateByPrimaryKeySelective(record);
+	 }
+	
 	public  UserInfo selectByTel(String tel){
 		return userInfoMapper.selectByTel(tel);
 	}
