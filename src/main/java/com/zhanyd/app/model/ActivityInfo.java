@@ -2,6 +2,8 @@ package com.zhanyd.app.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ActivityInfo {
     private Integer id;
 
@@ -9,8 +11,10 @@ public class ActivityInfo {
 
     private String activityContent;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     private Date activityTime;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     private Date cutOffTime;
 
     private String location;

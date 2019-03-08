@@ -28,7 +28,7 @@ CREATE TABLE `activity_info` (
   `location` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '活动地点',
   `longitude` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '经度',
   `latitude` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '纬度',
-  `state` tinyint(4) DEFAULT NULL COMMENT '状态',
+  `state` tinyint(4) DEFAULT NULL COMMENT '状态(1:有效2:结束3:取消)',
   `update_by` int(11) DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `create_by` int(11) DEFAULT NULL,

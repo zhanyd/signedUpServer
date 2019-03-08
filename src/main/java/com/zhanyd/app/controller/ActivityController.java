@@ -78,6 +78,8 @@ public class ActivityController {
 		JSONObject jsonObject = JSONObject.parseObject(returnContent);
 		String openid = jsonObject.getString("openid");
 		String sessionKey = jsonObject.getString("session_key");
+		resultMap.put("openid", openid);
+		resultMap.put("sessionKey", sessionKey);
 		
 		//判断openid是否已经存在
 		Map<String,String> param = new HashMap<String,String>();
@@ -108,7 +110,7 @@ public class ActivityController {
 
 
     /**
-     * 获取unionId
+             * 获取unionId
      * @param encryptedData
      * @param iv
      * @param code
@@ -146,7 +148,7 @@ public class ActivityController {
     
     
     /**
-     * 新增或更新活动
+             * 新增或更新活动
      * @param request
      * @param activityInfo
      * @return
@@ -158,6 +160,7 @@ public class ActivityController {
     	String token = request.getHeader("Authorization");
     	Integer userId = JwtUtils.verifyJWT(token);
     	if(activityInfo.getId() == null) {
+    		activityInfo.setState((byte)1);
     		activityInfo.setCreateBy(userId);
     		activityInfo.setCreateTime(new Date());
     		count = activityService.insertSelective(activityInfo);
@@ -170,7 +173,7 @@ public class ActivityController {
     }
     
     /**
-     * 获取活动详情
+             * 获取活动详情
      * @param id
      * @return
      */

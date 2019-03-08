@@ -17,6 +17,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/views/**","/assets/**","/user/isUserExist","/user/login","/");
+                .excludePathPatterns("/views/**","/assets/**","/activity/getOpenidAndSession","/user/login","/");
     }
 }
